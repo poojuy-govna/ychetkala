@@ -1,0 +1,30 @@
+<!-- templates/cook/purchase_order.html -->
+{% extends "base.html" %}
+
+{% block title %}Заявка на закупку{% endblock %}
+
+{% block content %}
+<h2>Создать заявку на закупку</h2>
+
+<form method="post">
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr><th>Продукт</th><th>Ед. изм.</th><th>Текущий остаток</th><th>Запросить (кол-во)</th></tr>
+    </thead>
+    <tbody>
+      {% for p in products %}
+        <tr>
+          <td>{{ p.name }}</td>
+          <td>{{ p.unit }}</td>
+          <td>{{ p.current_stock }}</td>
+          <td><input type="number" name="quantity_{{ p.id }}" min="0" step="0.1" value="0"></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <br>
+  <button type="submit">Отправить заявку</button>
+</form>
+
+<p><a href="{{ url_for('cook_dashboard') }}">← Назад</a></p>
+{% endblock %}

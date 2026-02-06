@@ -1,0 +1,30 @@
+<!-- templates/cook/track_meals.html -->
+{% extends "base.html" %}
+
+{% block title %}Учет выданных блюд{% endblock %}
+
+{% block content %}
+<h2>Учет выданных блюд</h2>
+
+<form method="post">
+  <p>
+    <label for="student_id">Ученик:</label>
+    <select name="student_id" id="student_id" required>
+      {% for s in students %}
+        <option value="{{ s.id }}">{{ s.username }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="meal_id">Блюдо:</label>
+    <select name="meal_id" id="meal_id" required>
+      {% for m in meals %}
+        <option value="{{ m.id }}">{{ m.name }} ({{ m.meal_type.name }})</option>
+      {% endfor %}
+    </select>
+  </p>
+  <button type="submit">Отметить выдачу</button>
+</form>
+
+<p><a href="{{ url_for('cook_dashboard') }}">← Назад</a></p>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- templates/student/feedback.html -->
+{% extends "base.html" %}
+
+{% block title %}Оставить отзыв{% endblock %}
+
+{% block content %}
+<h2>Оставить отзыв о блюде</h2>
+
+<form method="post">
+  <p>
+    <label for="meal_id">Блюдо:</label>
+    <select name="meal_id" id="meal_id" required>
+      {% for meal in meals %}
+        <option value="{{ meal.id }}">{{ meal.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="rating">Оценка (1–5):</label>
+    <select name="rating" id="rating" required>
+      <option value="5">5 — Отлично</option>
+      <option value="4">4 — Хорошо</option>
+      <option value="3">3 — Удовлетворительно</option>
+      <option value="2">2 — Плохо</option>
+      <option value="1">1 — Ужасно</option>
+    </select>
+  </p>
+  <p>
+    <label for="comment">Комментарий (необязательно):</label><br>
+    <textarea name="comment" id="comment" rows="4"></textarea>
+  </p>
+  <button type="submit">Отправить отзыв</button>
+</form>
+
+<p><a href="{{ url_for('student_dashboard') }}">← Назад</a></p>
+{% endblock %}

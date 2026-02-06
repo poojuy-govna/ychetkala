@@ -1,0 +1,31 @@
+<!-- templates/admin/dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Панель администратора{% endblock %}
+
+{% block content %}
+<h2>Панель администратора: {{ user.username }}</h2>
+
+<h3>Заявки на закупку (ожидают согласования)</h3>
+{% if pending_orders %}
+  <ul>
+    {% for order in pending_orders %}
+      <li>
+        Заявка №{{ order.id }} от повара {{ User.query.get(order.cook_id).username }}
+        <br>
+        <a href="{{ url_for('manage_orders') }}">Перейти к управлению</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Нет заявок, ожидающих согласования.</p>
+{% endif %}
+
+<h3>Действия</h3>
+<ul>
+  <li><a href="{{ url_for('manage_orders') }}">Управление заявками</a></li>
+  <li><a href="{{ url_for('reports') }}">Формирование отчётов</a></li>
+</ul>
+
+<p><a href="{{ url_for('index') }}">← Назад</a></p>
+{% endblock %}

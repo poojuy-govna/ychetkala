@@ -1,0 +1,22 @@
+<!-- templates/student/preferences.html -->
+{% extends "base.html" %}
+
+{% block title %}Пищевые особенности{% endblock %}
+
+{% block content %}
+<h2>Укажите пищевые особенности</h2>
+
+<form method="post">
+  <p>
+    <label for="allergies">Аллергии (через запятую):</label><br>
+    <textarea name="allergies" id="allergies" rows="3">{{ student_obj.allergies or '' }}</textarea>
+  </p>
+  <p>
+    <label for="preferences">Предпочтения (например, вегетарианец):</label><br>
+    <textarea name="preferences" id="preferences" rows="3">{{ student_obj.preferences or '' }}</textarea>
+  </p>
+  <button type="submit">Сохранить</button>
+</form>
+
+<p><a href="{{ url_for('student_dashboard') }}">← Назад</a></p>
+{% endblock %}

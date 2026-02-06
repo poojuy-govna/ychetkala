@@ -1,0 +1,30 @@
+<!-- templates/menu.html -->
+{% extends "base.html" %}
+
+{% block title %}Меню{% endblock %}
+
+{% block content %}
+<h2>Меню школьной столовой</h2>
+
+<h3>Завтраки</h3>
+<ul>
+  {% for meal in breakfasts %}
+    <li><strong>{{ meal.name }}</strong> — {{ meal.description }} ({{ meal.price }} руб.)</li>
+  {% else %}
+    <li>Меню завтраков пока не загружено.</li>
+  {% endfor %}
+</ul>
+
+<h3>Обеды</h3>
+<ul>
+  {% for meal in lunches %}
+    <li><strong>{{ meal.name }}</strong> — {{ meal.description }} ({{ meal.price }} руб.)</li>
+  {% else %}
+    <li>Меню обедов пока не загружено.</li>
+  {% endfor %}
+</ul>
+
+{% if current_user.is_authenticated and current_user.role == 'student' %}
+  <p><a href="{{ url_for('student_dashboard') }}">← Назад в личный кабинет</a></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+<!-- templates/cook/dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Панель повара{% endblock %}
+
+{% block content %}
+<h2>Панель повара: {{ user.username }}</h2>
+
+<h3>Остатки продуктов</h3>
+<table border="1" cellpadding="8">
+  <thead>
+    <tr><th>Продукт</th><th>Ед. изм.</th><th>Остаток</th></tr>
+  </thead>
+  <tbody>
+    {% for p in inventory %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.unit }}</td>
+        <td>{{ p.current_stock }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>Действия</h3>
+<ul>
+  <li><a href="{{ url_for('track_meals') }}">Учет выданных блюд</a></li>
+  <li><a href="{{ url_for('purchase_order') }}">Создать заявку на закупку</a></li>
+</ul>
+
+<p><a href="{{ url_for('index') }}">← Назад</a></p>
+{% endblock %}

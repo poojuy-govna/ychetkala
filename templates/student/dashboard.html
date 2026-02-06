@@ -1,0 +1,49 @@
+<!-- templates/student/dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет ученика{% endblock %}
+
+{% block content %}
+<h2>Личный кабинет: {{ user.username }}</h2>
+
+<h3>Ваши данные</h3>
+<p><strong>Аллергии:</strong> {{ student_details.allergies or 'Не указано' }}</p>
+<p><strong>Предпочтения:</strong> {{ student_details.preferences or 'Не указано' }}</p>
+
+<h3>Действия</h3>
+<ul>
+  <li><a href="{{ url_for('view_menu') }}">Просмотреть меню</a></li>
+  <li><a href="{{ url_for('pay') }}">Оплатить питание</a></li>
+  <li><a href="{{ url_for('preferences') }}">Изменить аллергии/предпочтения</a></li>
+  <li><a href="{{ url_for('feedback') }}">Оставить отзыв</a></li>
+</ul>
+
+<h3>Отметить получение питания</h3>
+<form method="post" action="{{ url_for('mark_taken') }}">
+  <label for="meal_id">Выберите блюдо:</label>
+  <select name="meal_id" id="meal_id" required>
+    {% for meal in meals %}
+      <option value="{{ meal.id }}">{{ meal.name }} ({{ meal.price }} руб.)</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Отметить получение</button>
+</form>
+
+<script>
+  // Загрузим список блюд при открытии страницы
+  fetch('/api/meals')
+    .then(res => res.json())
+    .then(meals => {
+      const select = document.getElementById('meal_id');
+      select.innerHTML = '';
+      meals.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.id;
+        opt.textContent = `${m.name} (${m.price} руб.)`;
+        select.appendChild(opt);
+      });
+    })
+    .catch(console.error);
+</script>
+
+{% endblock %}

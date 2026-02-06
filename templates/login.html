@@ -1,0 +1,20 @@
+<!-- templates/login.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Вход</h2>
+<form method="post">
+    <p>
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" required>
+    </p>
+    <p>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+    </p>
+    <p>
+        <button type="submit">Войти</button>
+    </p>
+</form>
+<p><a href="{{ url_for('register') }}">Зарегистрироваться как ученик</a></p>
+{% endblock %}
